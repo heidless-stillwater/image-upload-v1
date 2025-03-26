@@ -1,0 +1,52 @@
+// @import 'bootstrap-icons/font/bootstrap-icons';
+// @import 'bootstrap/dist/css/bootstrap';
+
+
+// app/assets/stylesheets/application.bootstrap.scss loaded with sprockets-rails
+// @import 'bootstrap/scss/bootstrap';
+// @import 'bootstrap-icons/font/bootstrap-icons';
+@import 'font-awesome';
+
+.search-area {
+  padding-top: 50px;
+}
+
+.no-right-padding {
+  padding-right: 0 !important;
+}
+
+.no-left-padding {
+  padding-left: 0 !important;
+}
+
+.results-block {
+  display: inline-block;
+}
+
+.logout-button {
+  margin-right: 10px;
+}
+
+.user-name {
+  margin-top: 3.5%;
+  padding-right: 20px;
+}
+
+#home-container {
+  margin-top: 25px;
+}
+
+.home-jumbotron {
+  background-image: url("markets-graph-1.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 450px;
+}
+
+.home-link {
+  text-decoration: none;
+}
+
+
+

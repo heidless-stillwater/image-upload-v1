@@ -1,0 +1,59 @@
+<h1>pFolio</h1>
+
+<div class="search-area">
+  <h3>Search Stocks</h3>
+
+  <%= form_tag search_stock_path, method: :get, local: true, data: { turbo: false } do  %>
+    <div class="form-group row">
+      <div class="col-sm-8 no-right-padding">
+        <%= text_field_tag :stock, params[:stock], placeholder: "Enter Stock Ticker Symbol: i.e. NKE or GOOG", autofocus: true, class: "form-control form-control-lg" %>
+      </div>
+      <div class="col-sm-3 no-left-padding ms-4">
+        <%= button_tag type: :submit, class: "btn btn-success" do %>
+          <%= fa_icon 'search 2x' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @stock %>
+  <div class="card card-header results-block mt-3 col-9">
+    <span>
+      <strong>Symbol:</strong> <%= @stock.ticker %>
+    </span>
+    <span class="ms-3">
+      <strong>Name:</strong> <%= @stock.name %>
+    </span>
+    <span class="ms-3">
+      <strong>Price:</strong> <%= @stock.last_price %>
+    </span>
+    <% if current_user.can_track_stock?(@stock.ticker) %>
+      <% if @stock.last_price == 0.0 %>
+        <span class="badge rounded-pill text-bg-warning ms-3">
+          Stock not found
+        </span>
+      <% else%>
+        <%= link_to 'Add 2 Portfolio', user_stocks_path(user: current_user, ticker: @stock.ticker),
+                                class: "btn btn-sm btn-success ms-3", data: { turbo_method: :post } %>
+      <% end %>
+    <% else %>
+      <span class="badge rounded-pill bg-secondary ms-3">
+        You are already tracking 
+        <% if !current_user.under_stock_limit? %>
+          10 stocks
+        <% end %>
+        <% #debugger %>
+        <% if current_user.stock_already_tracked?(@stock.ticker) %>
+          this stock
+        <% end %>
+      </span>
+    <% end %>
+  </div>
+<% end %>
+
+<% if !@tracked_stocks.empty? %>
+  <%= render partial: 'stocks/list' %>
+<% end %>
+
+
